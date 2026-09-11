@@ -11,7 +11,8 @@ from fastapi.staticfiles import StaticFiles
 # Load local environment variables (.env) before service initialization
 load_dotenv()
 
-from backend.api import ai_router, government_router, issues_router
+from api import ai_router, government_router, issues_router
+
 from backend.models.database import SessionLocal, init_db
 from backend.services.issue_service import seed_demo_issues
 
