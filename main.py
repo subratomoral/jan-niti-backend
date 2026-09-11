@@ -13,8 +13,8 @@ load_dotenv()
 
 from api import ai_router, government_router, issues_router
 
-from backend.models.database import SessionLocal, init_db
-from backend.services.issue_service import seed_demo_issues
+from models.database import SessionLocal, init_db
+from services.issue_service import seed_demo_issues
 
 # Ensure persistent uploads folder exists for citizen photo evidence
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="JAN-NITI AI API",
-    description="Backend API for citizen-driven constituency development insights.",
+    description=" API for citizen-driven constituency development insights.",
     version="1.0.0",
     lifespan=lifespan,
 )
