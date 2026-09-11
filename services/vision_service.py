@@ -103,7 +103,7 @@ async def analyze_photo_evidence(file: UploadFile) -> VisionAnalysisResponse:
             }
             """
             response = client.models.generate_content(
-                model="gemini-2.5-flash",
+                model="gemini-3.6-flash",
                 contents=[prompt, img],
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json"
