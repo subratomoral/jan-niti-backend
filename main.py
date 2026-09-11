@@ -10,6 +10,32 @@ from fastapi.staticfiles import StaticFiles
 
 # Load local environment variables (.env) before service initialization
 load_dotenv()
+from google import genai
+import os
+
+
+@app.get("/test-gemini")
+def test_gemini():
+    api_key = os.getenv("GEMINI_API_KEY", "")
+    if not api_key:
+        return {
+            "status": "error",
+            "message": "GEMINI_API_KEY environment variable is missing!",
+        }
+
+    try:
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash", contents="Say 'API is working perfectly!'"
+        )
+        return {
+            "status": "success",
+            "api_key_configured": True,
+            "gemini_response": response.text.strip(),
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 
 from api import ai_router, government_router, issues_router
 
