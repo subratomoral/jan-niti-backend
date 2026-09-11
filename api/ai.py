@@ -3,8 +3,8 @@
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
-from backend.models.database import get_db
-from backend.schemas.ai import (
+from models.database import get_db
+from schemas.ai import (
     MultimodalAnalysisRequest,
     MultimodalAnalysisResponse,
     SpeechTranscriptionResponse,

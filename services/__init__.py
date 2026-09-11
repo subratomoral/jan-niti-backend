@@ -1,15 +1,15 @@
 """Services package exporting all core AI, priority, vision, audio, and database operations."""
 
-from backend.services.ai_service import (
+from services.ai_service import (
     analyze_and_persist_issue,
     analyze_issue_text,
     analyze_issue_text_with_llm,
     process_multimodal_fusion,
     safe_extract_json,
 )
-from backend.services.clustering_service import get_theme_clusters
-from backend.services.geo_service import evaluate_geo_context
-from backend.services.issue_service import (
+from services.clustering_service import get_theme_clusters
+from services.geo_service import evaluate_geo_context
+from services.issue_service import (
     create_issue,
     get_issue_by_id,
     list_issues,
@@ -17,17 +17,17 @@ from backend.services.issue_service import (
     submit_and_analyze_unified_issue,
     update_issue_status,
 )
-from backend.services.priority_service import (
+from services.priority_service import (
     calculate_priority_score,
     compute_evidence_strength,
     evaluate_issue_priority,
 )
-from backend.services.similarity_service import calculate_similar_reports
-from backend.services.speech_service import (
+from services.similarity_service import calculate_similar_reports
+from services.speech_service import (
     transcribe_audio,
     transcribe_audio_file,
 )
-from backend.services.vision_service import (
+from services.vision_service import (
     analyze_image_evidence,
     analyze_photo_evidence,
 )

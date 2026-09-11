@@ -10,7 +10,7 @@ from fastapi import HTTPException, UploadFile, status
 from google import genai
 from google.genai import types
 
-from backend.schemas.ai import VisionAnalysisResponse
+from schemas.ai import VisionAnalysisResponse
 
 SUPPORTED_IMAGE_MIMES = {
     "image/jpeg",

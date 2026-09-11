@@ -3,7 +3,7 @@
 from datetime import datetime, timezone
 from typing import Any
 from sqlalchemy import Column, DateTime, Float, Integer, String, Text
-from backend.models.database import Base
+from models.database import Base
 
 
 class Issue(Base):

@@ -5,9 +5,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from backend.models.database import get_db
-from backend.models.issue import Issue
-from backend.schemas.government import (
+from models.database import get_db
+from models.issue import Issue
+from schemas.government import (
     GovernmentConstituencyResponse,
     GovernmentHotspotItem,
     GovernmentOverviewResponse,

@@ -9,12 +9,12 @@ Replaces static lookup tables with dynamic calculations driven by:
 from typing import Optional, Tuple
 from sqlalchemy.orm import Session
 
-from backend.schemas.ai import (
+from schemas.ai import (
     PriorityEngineResponse,
     PriorityFactorBreakdown,
     PriorityLevelType,
 )
-from backend.services.geo_service import evaluate_geo_context
+from services.geo_service import evaluate_geo_context
 
 # Baseline domain criticality weights (Out of 100)
 BASE_CRITICALITY = {
@@ -63,7 +63,7 @@ def evaluate_issue_priority(
     db: Optional[Session] = None,
 ) -> Tuple[int, PriorityLevelType, PriorityFactorBreakdown, str]:
     """Dynamically evaluates priority score with enhanced weights to ensure critical issues reach 80+."""
-    from backend.models.issue import Issue
+    from models.issue import Issue
 
     # 1. Base Domain Criticality (0 - 100)
     base_val = BASE_CRITICALITY.get(category, BASE_CRITICALITY["Other"])

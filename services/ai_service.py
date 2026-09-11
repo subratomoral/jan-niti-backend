@@ -9,8 +9,8 @@ from sqlalchemy.orm import Session
 from google import genai
 from google.genai import types
 
-from backend.models.issue import Issue
-from backend.schemas.ai import (
+from models.issue import Issue
+from schemas.ai import (
     CategoryType,
     IssueAnalysisResponse,
     MultimodalAnalysisRequest,
@@ -20,7 +20,7 @@ from backend.schemas.ai import (
     TextAnalysisSummary,
     VisionAnalysisResponse,
 )
-from backend.services.priority_service import (
+from services.priority_service import (
     compute_evidence_strength,
     evaluate_issue_priority,
 )

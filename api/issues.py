@@ -4,9 +4,9 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
-from backend.models.database import get_db
-from backend.schemas.ai import IssueAnalysisResponse
-from backend.schemas.issue import (
+from models.database import get_db
+from schemas.ai import IssueAnalysisResponse
+from schemas.issue import (
     IssueCreate,
     IssueListResponse,
     IssueResponse,

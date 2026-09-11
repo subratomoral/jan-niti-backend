@@ -1,6 +1,6 @@
 """Central schemas export package."""
 
-from backend.schemas.ai import (
+from schemas.ai import (
     AnalysisModeType,
     CategoryType,
     IssueAnalysisResponse,

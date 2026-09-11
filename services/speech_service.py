@@ -5,7 +5,7 @@ from fastapi import HTTPException, UploadFile, status
 from google import genai
 from google.genai import types
 
-from backend.schemas.ai import SpeechTranscriptionResponse
+from schemas.ai import SpeechTranscriptionResponse
 
 SUPPORTED_AUDIO_MIMES = {
     "audio/wav",

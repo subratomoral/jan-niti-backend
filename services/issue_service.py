@@ -5,11 +5,11 @@ from datetime import datetime, timezone
 from typing import List, Optional, Tuple
 from sqlalchemy.orm import Session
 
-from backend.models.issue import Issue
-from backend.schemas.ai import MultimodalAnalysisRequest
-from backend.schemas.issue import IssueCreate, IssueStatusUpdate, IssueSubmitRequest
-from backend.services.ai_service import process_multimodal_fusion
-from backend.services.priority_service import evaluate_issue_priority
+from models.issue import Issue
+from schemas.ai import MultimodalAnalysisRequest
+from schemas.issue import IssueCreate, IssueStatusUpdate, IssueSubmitRequest
+from services.ai_service import process_multimodal_fusion
+from services.priority_service import evaluate_issue_priority
 
 
 def create_issue(db: Session, payload: IssueCreate) -> Issue:

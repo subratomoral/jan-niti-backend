@@ -2,7 +2,7 @@
 
 import math
 from typing import Optional
-from backend.schemas.ai import GeoAnalysisResponse, GeoFacilityContext
+from schemas.ai import GeoAnalysisResponse, GeoFacilityContext
 
 # Known civic anchor facilities for key regional hubs (Odisha baseline)
 KNOWN_FACILITY_REGISTRY = {

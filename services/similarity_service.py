@@ -2,8 +2,8 @@
 
 from typing import List
 from sqlalchemy.orm import Session
-from backend.models.issue import Issue
-from backend.schemas.ai import SimilarReportMatch, SimilarReportsResponse
+from models.issue import Issue
+from schemas.ai import SimilarReportMatch, SimilarReportsResponse
 
 
 def calculate_similar_reports(

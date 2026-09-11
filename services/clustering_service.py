@@ -3,8 +3,8 @@
 from typing import Any, List, Optional
 from sqlalchemy import func
 from sqlalchemy.orm import Session
-from backend.models.issue import Issue
-from backend.schemas.ai import ThemeClusterItem, ThemeClusteringResponse
+from models.issue import Issue
+from schemas.ai import ThemeClusterItem, ThemeClusteringResponse
 
 
 def get_theme_clusters(
