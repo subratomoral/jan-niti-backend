@@ -13,7 +13,7 @@ from schemas.issue import (
     IssueStatusUpdate,
     IssueSubmitRequest,
 )
-from backend.services import ai_service, issue_service
+from services import ai_service, issue_service
 
 router = APIRouter(prefix="/api/issues", tags=["Issues"])
 

@@ -95,7 +95,7 @@ def _safe_sqlite_column_migration():
 
 def init_db():
     """Idempotently creates all tables and runs non-destructive SQLite column extensions."""
-    from backend.models.issue import Issue  # noqa: F401
+    from models.issue import Issue  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
     _safe_sqlite_column_migration()

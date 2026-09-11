@@ -14,14 +14,14 @@ from schemas.ai import (
     TextAnalysisResponse,
     VisionAnalysisResponse,
 )
-from backend.schemas.government import (
+from schemas.government import (
     GovernmentConstituencyResponse,
     GovernmentHotspotItem,
     GovernmentOverviewResponse,
     GovernmentPrioritySummaryItem,
     GovernmentThemeItem,
 )
-from backend.schemas.issue import (
+from schemas.issue import (
     IssueCreate,
     IssueListResponse,
     IssueResponse,

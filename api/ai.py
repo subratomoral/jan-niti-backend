@@ -13,7 +13,7 @@ from schemas.ai import (
     ThemeClusteringResponse,
     VisionAnalysisResponse,
 )
-from backend.services import (
+from services import (
     ai_service,
     clustering_service,
     speech_service,
