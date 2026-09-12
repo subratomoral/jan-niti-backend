@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="JAN-NITI AI API",
-    description=" API for citizen-driven constituency development insights.",
+    description="API for citizen-driven constituency development insights.",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -45,17 +45,10 @@ app = FastAPI(
 # Mount uploads directory so government portal can view uploaded citizen photo evidence
 app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
-raw_origins = os.getenv(
-    "CORS_ORIGINS",
-    "http://localhost:5500,http://127.0.0.1:5500,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173",
-)
-allowed_origins = [
-    origin.strip() for origin in raw_origins.split(",") if origin.strip()
-]
-
+# Allow all origins to prevent any CORS preflight or 400 errors from Netlify or custom domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins if allowed_origins else ["*"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
