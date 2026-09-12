@@ -47,12 +47,12 @@ class IssueSubmitRequest(BaseModel):
     latitude: Optional[float] = Field(default=None, ge=-90.0, le=90.0)
     longitude: Optional[float] = Field(default=None, ge=-180.0, le=180.0)
     location_name: Optional[str] = Field(default=None, max_length=128)
+    phone: Optional[str] = Field(default=None, max_length=20, description="Citizen mobile number") # <--- Ise yahan add karna zaroori hai!
     image_path: Optional[str] = Field(default=None, max_length=256)
     audio_path: Optional[str] = Field(default=None, max_length=256)
     vision_category: Optional[CategoryType] = None
     vision_evidence_signal: Optional[float] = Field(default=None, ge=0.0, le=1.0)
     vision_observations: Optional[List[str]] = None
-
 
 class IssueCreate(BaseModel):
     category: CategoryType = Field(default="Community Development")
