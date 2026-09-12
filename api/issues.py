@@ -1,5 +1,3 @@
-"""FastAPI router for citizen issue ingestion, multimodal submission, and status management."""
-
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
