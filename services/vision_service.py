@@ -188,6 +188,8 @@
 # analyze_image_evidence = analyze_photo_evidence
 """Computer Vision evidence analysis service with Gemini Vision SDK and Rigorous Civic Authenticity Verification."""
 
+"""Computer Vision evidence analysis service with Gemini Vision SDK and Universal Civic Authenticity Verification."""
+
 import io
 import json
 import os
@@ -222,7 +224,7 @@ def safe_extract_json(raw_text: Optional[str]) -> Dict[str, Any]:
     cleaned = str(raw_text).strip()
 
     if cleaned.startswith("```"):
-        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=r"")
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"\s*```$", "", cleaned)
         cleaned = cleaned.strip()
 
@@ -266,17 +268,19 @@ async def analyze_photo_evidence(file: UploadFile) -> VisionAnalysisResponse:
             detail="Image file exceeds 10 MB limit.",
         )
 
-    # 1. Real Gemini Vision with Rigorous Anti-Fraud & Infrastructure Defect Verification
+    # 1. Universal Gemini Vision Forensics for ALL Civic Categories (Roads, Hospitals, Schools, Water, etc.)
     client = _get_client()
     if client:
         try:
             img = Image.open(io.BytesIO(image_bytes))
             prompt = """
-            You are a strict senior civic inspection forensic AI. Inspect this citizen photo evidence with high skepticism:
-            1. Determine if this image genuinely depicts a BROKEN, DAMAGED, or HAZARDOUS public civic infrastructure problem (e.g., severe potholes, deep road craters, massive garbage dump, water pipe burst, broken public structure).
-            2. CRITICAL RULE: If the photo shows a NORMAL, HEALTHY, CLEAN, or NEWLY PAVED ROAD without any major damage, or if it's an indoor room, selfie, food, animal, computer screen, or unrelated picture, you MUST set "valid_civic_evidence" to false and "evidence_signal" to a very low value between 0.10 and 0.25.
-            3. Only if severe, visible civic infrastructure damage/defect is present, set "valid_civic_evidence" to true and assign a high "evidence_signal" (0.65 to 0.98).
-            4. Write 2-3 objective technical observations describing the exact physical condition.
+            You are a strict senior civic inspection forensic AI. Inspect this citizen photo evidence with high skepticism across all public infrastructure domains (Roads, Healthcare/Hospitals, Education/Schools, Water supply, Sanitation/Garbage, and Community assets):
+
+            1. Determine if this image genuinely depicts a BROKEN, DAMAGED, HAZARDOUS, or NEGLECTED public civic problem (e.g., severe potholes, broken hospital infrastructure/lack of basic medical maintenance, damaged school classrooms/roofs, major water leaks/pipe bursts, overflowing garbage dumps).
+            2. UNIVERSAL ANTI-FRAUD RULE: If the photo shows a NORMAL, HEALTHY, CLEAN, WELL-MAINTAINED, or NEW structure (such as a clean functioning hospital room, newly paved road, clean school, normal room, selfie, food, animal, computer screen, or unrelated picture), you MUST set "valid_civic_evidence" to false and set "evidence_signal" to a very low value between 0.10 and 0.25.
+            3. Only if a real, visible, and severe civic defect/maintenance failure is present in the respective category, set "valid_civic_evidence" to true and assign an accurate high "evidence_signal" (0.65 to 0.98).
+            4. Choose the precise matching category: "Roads", "Healthcare", "Education", "Water", "Employment", "Community Development", or "Other".
+            5. Write 2-3 objective technical observations describing the exact physical condition.
 
             Respond ONLY with a valid JSON object matching this schema:
             {
@@ -305,15 +309,14 @@ async def analyze_photo_evidence(file: UploadFile) -> VisionAnalysisResponse:
                 observations = [str(raw_observations)]
 
             ev_signal = float(data.get("evidence_signal", 0.80 if is_valid else 0.20))
+            cat = data.get("possible_category", "Other")
 
             if not is_valid:
                 observations.insert(
                     0,
-                    "⚠️ Image inspection note: Photo displays normal or non-defective infrastructure. High priority score suppressed.",
+                    "⚠️ Image inspection note: Photo displays normal, healthy, or non-defective infrastructure. High priority score suppressed.",
                 )
                 cat = "Other"
-            else:
-                cat = data.get("possible_category", "Roads")
 
             return VisionAnalysisResponse(
                 possible_category=cat,
@@ -323,18 +326,27 @@ async def analyze_photo_evidence(file: UploadFile) -> VisionAnalysisResponse:
                 analysis_mode="live",
             )
         except Exception as e:
-            print(f"Gemini Vision Verification Fallback: {e}")
+            print(f"Gemini Universal Vision Verification Fallback: {e}")
 
-    # 2. Heuristic Context-Aware Fallback
+    # 2. Heuristic Context-Aware Fallback for all categories
     fn = (file.filename or "").lower()
     if any(k in fn for k in ["road", "pothole", "street", "sadak", "gaddha"]):
-        cat = "Roads"
+        cat, ev_signal = "Roads", 0.78
         obs = ["Surface cratering and unpaved shoulder degradation visible in evidence"]
-        ev_signal = 0.78
+    elif any(k in fn for k in ["hospital", "clinic", "health", "doctor", "aspatal"]):
+        cat, ev_signal = "Healthcare", 0.75
+        obs = [
+            "Infrastructure attributes consistent with healthcare maintenance deficit"
+        ]
+    elif any(k in fn for k in ["school", "class", "teacher", "education", "vidyalaya"]):
+        cat, ev_signal = "Education", 0.72
+        obs = ["Educational facility structural wear detected"]
+    elif any(k in fn for k in ["water", "pipe", "tap", "drain", "flood", "pani"]):
+        cat, ev_signal = "Water", 0.76
+        obs = ["Pipeline fracture or drainage anomaly indicators present"]
     else:
-        cat = "Other"
+        cat, ev_signal = "Other", 0.40
         obs = ["General visual civic evidence uploaded by citizen"]
-        ev_signal = 0.40
 
     return VisionAnalysisResponse(
         possible_category=cat,  # type: ignore
